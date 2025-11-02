@@ -42,5 +42,17 @@ describe("당첨 번호 검증 테스트", () => {
       WinningNumberValidator.parse("1,2,3,4,5,5");
     }).toThrow("[ERROR]");
   });
+
+  test("6개보다 적으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5");
+    }).toThrow("[ERROR]");
+  });
+
+  test("6개보다 많으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5,6,7");
+    }).toThrow("[ERROR]");
+  });
 });
 

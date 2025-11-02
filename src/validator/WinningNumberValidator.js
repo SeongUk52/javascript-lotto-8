@@ -5,6 +5,7 @@ class WinningNumberValidator {
     }
     
     const numbers = input.split(",").map((number) => number.trim());
+    this.#validateCount(numbers);
     this.#validateNumeric(numbers);
     
     const parsedNumbers = numbers.map((number) => Number(number));
@@ -12,6 +13,12 @@ class WinningNumberValidator {
     this.#validateDuplicate(parsedNumbers);
     
     return parsedNumbers;
+  }
+
+  static #validateCount(numbers) {
+    if (numbers.length !== 6) {
+      throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+    }
   }
 
   static #validateNumeric(numbers) {

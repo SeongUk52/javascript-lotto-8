@@ -24,5 +24,23 @@ describe("당첨 번호 검증 테스트", () => {
       WinningNumberValidator.parse("1,2,3,4,5,");
     }).toThrow("[ERROR]");
   });
+
+  test("1보다 작은 번호가 포함되어 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("0,1,2,3,4,5");
+    }).toThrow("[ERROR]");
+  });
+
+  test("45보다 큰 번호가 포함되어 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5,46");
+    }).toThrow("[ERROR]");
+  });
+
+  test("중복된 번호가 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5,5");
+    }).toThrow("[ERROR]");
+  });
 });
 

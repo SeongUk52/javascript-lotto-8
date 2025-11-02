@@ -7,7 +7,11 @@ class WinningNumberValidator {
     const numbers = input.split(",").map((number) => number.trim());
     this.#validateNumeric(numbers);
     
-    return numbers.map((number) => Number(number));
+    const parsedNumbers = numbers.map((number) => Number(number));
+    this.#validateRange(parsedNumbers);
+    this.#validateDuplicate(parsedNumbers);
+    
+    return parsedNumbers;
   }
 
   static #validateNumeric(numbers) {
@@ -16,6 +20,20 @@ class WinningNumberValidator {
         throw new Error("[ERROR] 당첨 번호는 숫자여야 합니다.");
       }
     });
+  }
+
+  static #validateRange(numbers) {
+    numbers.forEach((number) => {
+      if (number < 1 || number > 45) {
+        throw new Error("[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
+      }
+    });
+  }
+
+  static #validateDuplicate(numbers) {
+    if (new Set(numbers).size !== numbers.length) {
+      throw new Error("[ERROR] 당첨 번호에 중복된 숫자가 있습니다.");
+    }
   }
 }
 

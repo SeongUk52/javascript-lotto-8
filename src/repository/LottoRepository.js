@@ -12,6 +12,10 @@ class LottoRepository {
   findAll() {
     return [...this.#lottos];
   }
+
+  count() {
+    return this.#lottos.length;
+  }
 }
 
 export default LottoRepository;

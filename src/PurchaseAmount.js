@@ -8,6 +8,10 @@ class PurchaseAmount {
   getAmount() {
     return this.#amount;
   }
+
+  getLottoCount() {
+    return this.#amount / 1000;
+  }
 }
 
 export default PurchaseAmount;

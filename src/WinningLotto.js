@@ -1,6 +1,19 @@
 import Lotto from "./Lotto.js";
 
 class WinningLotto {
+  static MIN_NUMBER = Lotto.MIN_NUMBER;
+  static MAX_NUMBER = Lotto.MAX_NUMBER;
+  static RANK_FIRST = 1;
+  static RANK_SECOND = 2;
+  static RANK_THIRD = 3;
+  static RANK_FOURTH = 4;
+  static RANK_FIFTH = 5;
+  static RANK_NONE = 0;
+  static MATCH_COUNT_FIRST = 6;
+  static MATCH_COUNT_SECOND_THIRD = 5;
+  static MATCH_COUNT_FOURTH = 4;
+  static MATCH_COUNT_FIFTH = 3;
+
   #winningLotto;
   #bonusNumber;
 
@@ -11,7 +24,7 @@ class WinningLotto {
   }
 
   #validateBonusNumber(bonusNumber, winningNumbers) {
-    if (bonusNumber < 1 || bonusNumber > 45) {
+    if (bonusNumber < WinningLotto.MIN_NUMBER || bonusNumber > WinningLotto.MAX_NUMBER) {
       throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
     if (winningNumbers.includes(bonusNumber)) {
@@ -42,23 +55,23 @@ class WinningLotto {
   getRank(lotto) {
     const matchCount = this.countMatchingNumbers(lotto);
     
-    if (matchCount === 6) {
-      return 1;
+    if (matchCount === WinningLotto.MATCH_COUNT_FIRST) {
+      return WinningLotto.RANK_FIRST;
     }
-    if (matchCount === 5 && this.hasBonusNumber(lotto)) {
-      return 2;
+    if (matchCount === WinningLotto.MATCH_COUNT_SECOND_THIRD && this.hasBonusNumber(lotto)) {
+      return WinningLotto.RANK_SECOND;
     }
-    if (matchCount === 5) {
-      return 3;
+    if (matchCount === WinningLotto.MATCH_COUNT_SECOND_THIRD) {
+      return WinningLotto.RANK_THIRD;
     }
-    if (matchCount === 4) {
-      return 4;
+    if (matchCount === WinningLotto.MATCH_COUNT_FOURTH) {
+      return WinningLotto.RANK_FOURTH;
     }
-    if (matchCount === 3) {
-      return 5;
+    if (matchCount === WinningLotto.MATCH_COUNT_FIFTH) {
+      return WinningLotto.RANK_FIFTH;
     }
     
-    return 0;
+    return WinningLotto.RANK_NONE;
   }
 }
 

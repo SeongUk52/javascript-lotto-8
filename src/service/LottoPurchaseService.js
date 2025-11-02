@@ -7,7 +7,11 @@ class LottoPurchaseService {
   }
 
   generateNumbers() {
-    return MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
+    return MissionUtils.Random.pickUniqueNumbersInRange(
+      Lotto.MIN_NUMBER,
+      Lotto.MAX_NUMBER,
+      Lotto.NUMBER_COUNT
+    );
   }
 
   createLotto(numbers) {

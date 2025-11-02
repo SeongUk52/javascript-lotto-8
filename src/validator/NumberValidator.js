@@ -1,3 +1,5 @@
+import Lotto from "../Lotto.js";
+
 class NumberValidator {
   static validateNumeric(value, errorMessage = "[ERROR] 숫자가 아닙니다.") {
     if (value === "" || isNaN(Number(value))) {
@@ -15,7 +17,7 @@ class NumberValidator {
 
   static validateRange(number, errorMessage = "[ERROR] 1부터 45 사이의 숫자여야 합니다.") {
     const num = typeof number === "string" ? Number(number) : number;
-    if (num < 1 || num > 45) {
+    if (num < Lotto.MIN_NUMBER || num > Lotto.MAX_NUMBER) {
       throw new Error(errorMessage);
     }
   }

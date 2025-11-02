@@ -1,4 +1,6 @@
 class PurchaseAmount {
+  static LOTTO_PRICE = 1000;
+
   #amount;
 
   constructor(amount) {
@@ -10,7 +12,7 @@ class PurchaseAmount {
   }
 
   getLottoCount() {
-    return this.#amount / 1000;
+    return this.#amount / PurchaseAmount.LOTTO_PRICE;
   }
 }
 

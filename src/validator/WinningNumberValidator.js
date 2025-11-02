@@ -1,4 +1,5 @@
 import NumberValidator from "./NumberValidator.js";
+import Lotto from "../Lotto.js";
 
 class WinningNumberValidator {
   static parse(input) {
@@ -18,7 +19,7 @@ class WinningNumberValidator {
   }
 
   static #validateCount(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== Lotto.NUMBER_COUNT) {
       throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
     }
   }

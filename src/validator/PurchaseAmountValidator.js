@@ -1,3 +1,5 @@
+import PurchaseAmount from "../PurchaseAmount.js";
+
 class PurchaseAmountValidator {
   static validate(amount) {
     this.#validateNumeric(amount);
@@ -12,10 +14,10 @@ class PurchaseAmountValidator {
 
   static #validateUnit(amount) {
     const amountNumber = Number(amount);
-    if (amountNumber < 1000) {
+    if (amountNumber < PurchaseAmount.LOTTO_PRICE) {
       throw new Error("[ERROR] 구매 금액은 1,000원 이상이어야 합니다.");
     }
-    if (amountNumber % 1000 !== 0) {
+    if (amountNumber % PurchaseAmount.LOTTO_PRICE !== 0) {
       throw new Error("[ERROR] 구매 금액은 1,000원 단위여야 합니다.");
     }
   }

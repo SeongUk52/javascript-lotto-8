@@ -12,5 +12,17 @@ describe("구매 금액 검증 테스트", () => {
       PurchaseAmountValidator.validate("");
     }).toThrow("[ERROR]");
   });
+
+  test("1,000원 미만이면 예외가 발생한다.", () => {
+    expect(() => {
+      PurchaseAmountValidator.validate("500");
+    }).toThrow("[ERROR]");
+  });
+
+  test("1,000원 단위가 아니면 예외가 발생한다.", () => {
+    expect(() => {
+      PurchaseAmountValidator.validate("1500");
+    }).toThrow("[ERROR]");
+  });
 });
 

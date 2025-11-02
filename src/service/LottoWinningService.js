@@ -1,10 +1,12 @@
 class LottoWinningService {
   #lottoRepository;
   #winningLottoRepository;
+  #purchaseAmountRepository;
 
-  constructor(lottoRepository, winningLottoRepository) {
+  constructor(lottoRepository, winningLottoRepository, purchaseAmountRepository) {
     this.#lottoRepository = lottoRepository;
     this.#winningLottoRepository = winningLottoRepository;
+    this.#purchaseAmountRepository = purchaseAmountRepository;
   }
 
   calculateRanks() {
@@ -41,6 +43,20 @@ class LottoWinningService {
     });
     
     return totalPrize;
+  }
+
+  calculateProfitRate() {
+    const totalPrize = this.calculateTotalPrize();
+    const purchaseAmount = this.#purchaseAmountRepository.find();
+    
+    if (!purchaseAmount) {
+      return 0;
+    }
+    
+    const purchaseAmountValue = purchaseAmount.getAmount();
+    const profitRate = (totalPrize / purchaseAmountValue) * 100;
+    
+    return Math.round(profitRate * 10) / 10;
   }
 }
 

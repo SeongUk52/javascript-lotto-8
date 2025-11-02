@@ -44,5 +44,22 @@ describe("당첨 계산 서비스 테스트", () => {
     expect(rankCounts[4]).toBe(1);
     expect(rankCounts[5]).toBe(1);
   });
+
+  test("등수별 당첨 금액을 계산한다.", () => {
+    const lottoRepository = new LottoRepository();
+    const winningLottoRepository = new WinningLottoRepository();
+    const service = new LottoWinningService(lottoRepository, winningLottoRepository);
+    const winningLotto = new WinningLotto([1, 2, 3, 4, 5, 6], 7);
+    
+    lottoRepository.save(new Lotto([1, 2, 3, 4, 5, 6])); // 1등: 2,000,000,000원
+    lottoRepository.save(new Lotto([1, 2, 3, 4, 5, 10])); // 3등: 1,500,000원
+    lottoRepository.save(new Lotto([1, 2, 3, 10, 11, 12])); // 5등: 5,000원
+    
+    winningLottoRepository.save(winningLotto);
+    
+    const totalPrize = service.calculateTotalPrize();
+    
+    expect(totalPrize).toBe(2001505000);
+  });
 });
 

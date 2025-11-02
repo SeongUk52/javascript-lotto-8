@@ -24,6 +24,24 @@ class LottoWinningService {
     
     return rankCounts;
   }
+
+  calculateTotalPrize() {
+    const rankCounts = this.calculateRankCounts();
+    const prizeAmounts = {
+      1: 2000000000,
+      2: 30000000,
+      3: 1500000,
+      4: 50000,
+      5: 5000,
+    };
+    
+    let totalPrize = 0;
+    [1, 2, 3, 4, 5].forEach((rank) => {
+      totalPrize += rankCounts[rank] * prizeAmounts[rank];
+    });
+    
+    return totalPrize;
+  }
 }
 
 export default LottoWinningService;

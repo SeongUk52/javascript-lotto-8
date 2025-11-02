@@ -4,7 +4,18 @@ class WinningNumberValidator {
       throw new Error("[ERROR] 당첨 번호는 쉼표로 구분되어야 합니다.");
     }
     
-    return input.split(",").map((number) => Number(number.trim()));
+    const numbers = input.split(",").map((number) => number.trim());
+    this.#validateNumeric(numbers);
+    
+    return numbers.map((number) => Number(number));
+  }
+
+  static #validateNumeric(numbers) {
+    numbers.forEach((number) => {
+      if (number === "" || isNaN(Number(number))) {
+        throw new Error("[ERROR] 당첨 번호는 숫자여야 합니다.");
+      }
+    });
   }
 }
 

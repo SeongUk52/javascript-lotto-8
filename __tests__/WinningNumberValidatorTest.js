@@ -12,5 +12,17 @@ describe("당첨 번호 검증 테스트", () => {
       WinningNumberValidator.parse("123456");
     }).toThrow("[ERROR]");
   });
+
+  test("숫자가 아닌 값이 포함되어 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5,abc");
+    }).toThrow("[ERROR]");
+  });
+
+  test("빈 문자열이 포함되어 있으면 예외가 발생한다.", () => {
+    expect(() => {
+      WinningNumberValidator.parse("1,2,3,4,5,");
+    }).toThrow("[ERROR]");
+  });
 });
 

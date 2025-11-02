@@ -13,6 +13,17 @@ class LottoWinningService {
     
     return lottos.map((lotto) => winningLotto.getRank(lotto));
   }
+
+  calculateRankCounts() {
+    const ranks = this.calculateRanks();
+    const rankCounts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    
+    ranks.forEach((rank) => {
+      rankCounts[rank] += 1;
+    });
+    
+    return rankCounts;
+  }
 }
 
 export default LottoWinningService;

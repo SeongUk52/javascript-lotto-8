@@ -24,4 +24,14 @@ describe("로또 클래스 테스트", () => {
       new Lotto([1, 2, 3, 4, 5, 46]);
     }).toThrow("[ERROR]");
   });
+
+  test("로또 번호가 내림차순으로 들어와도 오름차순으로 정렬된다.", () => {
+    const lotto = new Lotto([45, 44, 43, 42, 41, 40]);
+    expect(lotto.getNumbers()).toEqual([40, 41, 42, 43, 44, 45]);
+  });
+
+  test("로또 번호가 무작위 순서로 들어와도 오름차순으로 정렬된다.", () => {
+    const lotto = new Lotto([3, 1, 5, 2, 4, 6]);
+    expect(lotto.getNumbers()).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });

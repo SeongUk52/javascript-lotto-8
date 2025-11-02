@@ -3,7 +3,7 @@ class Lotto {
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.#numbers = [...numbers].sort((a, b) => a - b);
   }
 
   #validate(numbers) {
@@ -20,7 +20,9 @@ class Lotto {
     });
   }
 
-  // TODO: 추가 기능 구현
+  getNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

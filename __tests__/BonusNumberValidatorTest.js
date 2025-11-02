@@ -24,5 +24,11 @@ describe("보너스 번호 검증 테스트", () => {
       BonusNumberValidator.validate("46", [1, 2, 3, 4, 5, 6]);
     }).toThrow("[ERROR]");
   });
+
+  test("당첨 번호와 중복되면 예외가 발생한다.", () => {
+    expect(() => {
+      BonusNumberValidator.validate("6", [1, 2, 3, 4, 5, 6]);
+    }).toThrow("[ERROR]");
+  });
 });
 

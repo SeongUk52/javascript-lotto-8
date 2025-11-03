@@ -1,5 +1,6 @@
 import PurchaseAmount from "../PurchaseAmount.js";
 import NumberValidator from "./NumberValidator.js";
+import ErrorMessage from "../constants/ErrorMessage.js";
 
 class PurchaseAmountValidator {
   static validate(amount) {
@@ -13,7 +14,7 @@ class PurchaseAmountValidator {
   }
 
   static #validateNumeric(amount) {
-    NumberValidator.validateNumeric(amount, "[ERROR] 구매 금액은 숫자여야 합니다.");
+    NumberValidator.validateNumeric(amount, ErrorMessage.PURCHASE_AMOUNT_NOT_NUMERIC);
   }
 
   static #validateUnit(amount) {
@@ -21,10 +22,10 @@ class PurchaseAmountValidator {
     const minPrice = PurchaseAmount.LOTTO_PRICE.toLocaleString();
     
     if (amountNumber < PurchaseAmount.LOTTO_PRICE) {
-      throw new Error(`[ERROR] 구매 금액은 ${minPrice}원 이상이어야 합니다.`);
+      throw new Error(ErrorMessage.PURCHASE_AMOUNT_MIN(minPrice));
     }
     if (amountNumber % PurchaseAmount.LOTTO_PRICE !== 0) {
-      throw new Error(`[ERROR] 구매 금액은 ${minPrice}원 단위여야 합니다.`);
+      throw new Error(ErrorMessage.PURCHASE_AMOUNT_UNIT(minPrice));
     }
   }
 }

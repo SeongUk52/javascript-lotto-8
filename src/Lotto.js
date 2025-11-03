@@ -1,3 +1,5 @@
+import ErrorMessage from "./constants/ErrorMessage.js";
+
 class Lotto {
   static MIN_NUMBER = 1;
   static MAX_NUMBER = 45;
@@ -18,20 +20,20 @@ class Lotto {
 
   #validateCount(numbers) {
     if (numbers.length !== Lotto.NUMBER_COUNT) {
-      throw new Error(`[ERROR] 로또 번호는 ${Lotto.NUMBER_COUNT}개여야 합니다.`);
+      throw new Error(ErrorMessage.LOTTO_COUNT(Lotto.NUMBER_COUNT));
     }
   }
 
   #validateDuplicate(numbers) {
     if (new Set(numbers).size !== numbers.length) {
-      throw new Error("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+      throw new Error(ErrorMessage.LOTTO_DUPLICATE);
     }
   }
 
   #validateRange(numbers) {
     numbers.forEach((number) => {
       if (number < Lotto.MIN_NUMBER || number > Lotto.MAX_NUMBER) {
-        throw new Error(`[ERROR] 로또 번호는 ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
+        throw new Error(ErrorMessage.LOTTO_RANGE(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER));
       }
     });
   }

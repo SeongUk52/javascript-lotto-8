@@ -1,5 +1,6 @@
 import NumberValidator from "./NumberValidator.js";
 import Lotto from "../Lotto.js";
+import ErrorMessage from "../constants/ErrorMessage.js";
 
 class WinningNumberValidator {
   static DELIMITER = ",";
@@ -19,7 +20,7 @@ class WinningNumberValidator {
 
   static #validateDelimiter(input) {
     if (!input.includes(WinningNumberValidator.DELIMITER)) {
-      throw new Error("[ERROR] 당첨 번호는 쉼표로 구분되어야 합니다.");
+      throw new Error(ErrorMessage.WINNING_NUMBER_DELIMITER);
     }
   }
 
@@ -29,12 +30,12 @@ class WinningNumberValidator {
 
   static #validateCount(numbers) {
     if (numbers.length !== Lotto.NUMBER_COUNT) {
-      throw new Error(`[ERROR] 당첨 번호는 ${Lotto.NUMBER_COUNT}개여야 합니다.`);
+      throw new Error(ErrorMessage.WINNING_NUMBER_COUNT(Lotto.NUMBER_COUNT));
     }
   }
 
   static #validateNumeric(numbers) {
-    NumberValidator.validateNumericArray(numbers, "[ERROR] 당첨 번호는 숫자여야 합니다.");
+    NumberValidator.validateNumericArray(numbers, ErrorMessage.WINNING_NUMBER_NOT_NUMERIC);
   }
 
   static #parseToNumbers(numbers) {
@@ -42,11 +43,11 @@ class WinningNumberValidator {
   }
 
   static #validateRange(parsedNumbers) {
-    NumberValidator.validateRangeArray(parsedNumbers, `[ERROR] 당첨 번호는 ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
+    NumberValidator.validateRangeArray(parsedNumbers, ErrorMessage.WINNING_NUMBER_RANGE(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER));
   }
 
   static #validateDuplicate(parsedNumbers) {
-    NumberValidator.validateDuplicate(parsedNumbers, "[ERROR] 당첨 번호에 중복된 숫자가 있습니다.");
+    NumberValidator.validateDuplicate(parsedNumbers, ErrorMessage.WINNING_NUMBER_DUPLICATE);
   }
 }
 

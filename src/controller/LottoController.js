@@ -46,13 +46,10 @@ class LottoController {
   }
 
   async #readPurchaseAmountWithValidation() {
-    try {
-      const input = await InputView.readPurchaseAmount();
-      return PurchaseAmountValidator.parse(input);
-    } catch (error) {
-      OutputView.printError(error);
-      return await this.#readPurchaseAmountWithValidation();
-    }
+    return await this.#readWithValidation(
+      () => InputView.readPurchaseAmount(),
+      (input) => PurchaseAmountValidator.parse(input)
+    );
   }
 
   #generateLottos(purchaseAmount) {
@@ -82,22 +79,26 @@ class LottoController {
   }
 
   async #readWinningNumbersWithValidation() {
-    try {
-      const input = await InputView.readWinningNumbers();
-      return WinningNumberValidator.parse(input);
-    } catch (error) {
-      OutputView.printError(error);
-      return await this.#readWinningNumbersWithValidation();
-    }
+    return await this.#readWithValidation(
+      () => InputView.readWinningNumbers(),
+      (input) => WinningNumberValidator.parse(input)
+    );
   }
 
   async #readBonusNumberWithValidation(winningNumbers) {
+    return await this.#readWithValidation(
+      () => InputView.readBonusNumber(),
+      (input) => BonusNumberValidator.parse(input, winningNumbers)
+    );
+  }
+
+  async #readWithValidation(inputReader, validator) {
     try {
-      const input = await InputView.readBonusNumber();
-      return BonusNumberValidator.parse(input, winningNumbers);
+      const input = await inputReader();
+      return validator(input);
     } catch (error) {
       OutputView.printError(error);
-      return await this.#readBonusNumberWithValidation(winningNumbers);
+      return await this.#readWithValidation(inputReader, validator);
     }
   }
 

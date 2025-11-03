@@ -75,7 +75,7 @@ class OutputView {
       [WinningLotto.RANK_FIFTH]: WinningLotto.MATCH_COUNT_FIFTH,
     };
     
-    return MATCH_COUNT_MAP[rank] || 0;
+    return MATCH_COUNT_MAP[rank] ?? LottoWinningService.INITIAL_COUNT;
   }
 
   static getPrizeByRank(rank) {
@@ -87,7 +87,7 @@ class OutputView {
       [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
     };
     
-    return PRIZE_MAP[rank] || 0;
+    return PRIZE_MAP[rank] ?? LottoWinningService.INITIAL_PRIZE;
   }
 
   static formatPrize(prize) {

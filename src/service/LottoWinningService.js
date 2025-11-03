@@ -7,7 +7,7 @@ class LottoWinningService {
   static PRIZE_FOURTH = 50000;
   static PRIZE_FIFTH = 5000;
   static PERCENTAGE_MULTIPLIER = 100;
-  static ROUND_DECIMAL_PLACES = 10;
+  static ROUND_DECIMAL_PLACES = 100;
   static INITIAL_COUNT = 0;
   static INITIAL_PRIZE = 0;
 

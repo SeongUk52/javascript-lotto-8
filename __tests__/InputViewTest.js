@@ -20,7 +20,9 @@ describe("입력 뷰 테스트", () => {
 
     const input = await InputView.readPurchaseAmount();
 
-    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith("구입금액을 입력해 주세요.\n");
+    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith(
+      `${InputView.PROMPT_PURCHASE_AMOUNT}${InputView.NEWLINE}`
+    );
     expect(input).toBe("8000");
   });
 
@@ -29,7 +31,9 @@ describe("입력 뷰 테스트", () => {
 
     const input = await InputView.readWinningNumbers();
 
-    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith("\n당첨 번호를 입력해 주세요.\n");
+    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith(
+      `${InputView.NEWLINE}${InputView.PROMPT_WINNING_NUMBERS}${InputView.NEWLINE}`
+    );
     expect(input).toBe("1,2,3,4,5,6");
   });
 
@@ -38,7 +42,9 @@ describe("입력 뷰 테스트", () => {
 
     const input = await InputView.readBonusNumber();
 
-    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith("\n보너스 번호를 입력해 주세요.\n");
+    expect(MissionUtils.Console.readLineAsync).toHaveBeenCalledWith(
+      `${InputView.NEWLINE}${InputView.PROMPT_BONUS_NUMBER}${InputView.NEWLINE}`
+    );
     expect(input).toBe("7");
   });
 });

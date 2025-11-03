@@ -48,26 +48,32 @@ class LottoWinningService {
 
   calculateTotalPrize() {
     const rankCounts = this.calculateRankCounts();
-    const prizeAmounts = {
+    const prizeAmounts = this.#getPrizeAmounts();
+    const ranks = this.#getValidRanks();
+    
+    return ranks.reduce((totalPrize, rank) => {
+      return totalPrize + rankCounts[rank] * prizeAmounts[rank];
+    }, LottoWinningService.INITIAL_PRIZE);
+  }
+
+  #getPrizeAmounts() {
+    return {
       [WinningLotto.RANK_FIRST]: LottoWinningService.PRIZE_FIRST,
       [WinningLotto.RANK_SECOND]: LottoWinningService.PRIZE_SECOND,
       [WinningLotto.RANK_THIRD]: LottoWinningService.PRIZE_THIRD,
       [WinningLotto.RANK_FOURTH]: LottoWinningService.PRIZE_FOURTH,
       [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
     };
-    
-    let totalPrize = LottoWinningService.INITIAL_PRIZE;
-    [
+  }
+
+  #getValidRanks() {
+    return [
       WinningLotto.RANK_FIRST,
       WinningLotto.RANK_SECOND,
       WinningLotto.RANK_THIRD,
       WinningLotto.RANK_FOURTH,
       WinningLotto.RANK_FIFTH,
-    ].forEach((rank) => {
-      totalPrize += rankCounts[rank] * prizeAmounts[rank];
-    });
-    
-    return totalPrize;
+    ];
   }
 
   calculateProfitRate() {

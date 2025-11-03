@@ -3,8 +3,22 @@ import WinningLotto from "../WinningLotto.js";
 import LottoWinningService from "../service/LottoWinningService.js";
 
 class OutputView {
+  static MESSAGE_LOTTO_COUNT_PREFIX = "개를 구매했습니다.";
+  static MESSAGE_WINNING_STATISTICS_HEADER = "당첨 통계";
+  static MESSAGE_WINNING_STATISTICS_DIVIDER = "---";
+  static MESSAGE_BONUS_MATCH = ", 보너스 볼 일치";
+  static MESSAGE_MATCH_COUNT_SUFFIX = "개 일치";
+  static MESSAGE_PRIZE_PREFIX = "(";
+  static MESSAGE_PRIZE_SUFFIX = "원)";
+  static MESSAGE_COUNT_PREFIX = " - ";
+  static MESSAGE_COUNT_SUFFIX = "개";
+  static MESSAGE_PROFIT_RATE_PREFIX = "총 수익률은 ";
+  static MESSAGE_PROFIT_RATE_SUFFIX = "%입니다.";
+  static DELIMITER = ", ";
+  static NEWLINE = "\n";
+
   static printLottoCount(count) {
-    MissionUtils.Console.print(`${count}개를 구매했습니다.\n`);
+    MissionUtils.Console.print(`${count}${OutputView.MESSAGE_LOTTO_COUNT_PREFIX}${OutputView.NEWLINE}`);
   }
 
   static printLottoNumbers(lottos) {
@@ -16,7 +30,7 @@ class OutputView {
   }
 
   static printLottoNumberFormat(numbers) {
-    MissionUtils.Console.print(`[${numbers.join(", ")}]`);
+    MissionUtils.Console.print(`[${numbers.join(OutputView.DELIMITER)}]`);
   }
 
   static printWinningStatistics(rankCounts) {
@@ -25,8 +39,8 @@ class OutputView {
   }
 
   static printWinningStatisticsHeader() {
-    MissionUtils.Console.print("\n당첨 통계");
-    MissionUtils.Console.print("---");
+    MissionUtils.Console.print(`${OutputView.NEWLINE}${OutputView.MESSAGE_WINNING_STATISTICS_HEADER}`);
+    MissionUtils.Console.print(OutputView.MESSAGE_WINNING_STATISTICS_DIVIDER);
   }
 
   static printWinningStatisticsBody(rankCounts) {
@@ -41,9 +55,11 @@ class OutputView {
     const matchCount = OutputView.getMatchCountByRank(rank);
     const prize = OutputView.getPrizeByRank(rank);
     const formattedPrize = OutputView.formatPrize(prize);
-    const bonusText = rank === WinningLotto.RANK_SECOND ? ", 보너스 볼 일치" : "";
+    const bonusText = rank === WinningLotto.RANK_SECOND ? OutputView.MESSAGE_BONUS_MATCH : "";
     
-    MissionUtils.Console.print(`${matchCount}개 일치${bonusText} (${formattedPrize}원) - ${count}개`);
+    MissionUtils.Console.print(
+      `${matchCount}${OutputView.MESSAGE_MATCH_COUNT_SUFFIX}${bonusText} ${OutputView.MESSAGE_PRIZE_PREFIX}${formattedPrize}${OutputView.MESSAGE_PRIZE_SUFFIX}${OutputView.MESSAGE_COUNT_PREFIX}${count}${OutputView.MESSAGE_COUNT_SUFFIX}`
+    );
   }
 
   static printRankStatisticsSecond(count) {
@@ -79,7 +95,7 @@ class OutputView {
   }
 
   static printProfitRate(profitRate) {
-    MissionUtils.Console.print(`총 수익률은 ${profitRate}%입니다.`);
+    MissionUtils.Console.print(`${OutputView.MESSAGE_PROFIT_RATE_PREFIX}${profitRate}${OutputView.MESSAGE_PROFIT_RATE_SUFFIX}`);
   }
 }
 

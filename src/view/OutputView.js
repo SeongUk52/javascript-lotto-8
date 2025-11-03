@@ -41,16 +41,13 @@ class OutputView {
     const matchCount = OutputView.getMatchCountByRank(rank);
     const prize = OutputView.getPrizeByRank(rank);
     const formattedPrize = OutputView.formatPrize(prize);
+    const bonusText = rank === WinningLotto.RANK_SECOND ? ", 보너스 볼 일치" : "";
     
-    MissionUtils.Console.print(`${matchCount}개 일치 (${formattedPrize}원) - ${count}개`);
+    MissionUtils.Console.print(`${matchCount}개 일치${bonusText} (${formattedPrize}원) - ${count}개`);
   }
 
   static printRankStatisticsSecond(count) {
-    const matchCount = OutputView.getMatchCountByRank(WinningLotto.RANK_SECOND);
-    const prize = OutputView.getPrizeByRank(WinningLotto.RANK_SECOND);
-    const formattedPrize = OutputView.formatPrize(prize);
-    
-    MissionUtils.Console.print(`${matchCount}개 일치, 보너스 볼 일치 (${formattedPrize}원) - ${count}개`);
+    OutputView.printRankStatistics(WinningLotto.RANK_SECOND, count);
   }
 
   static getMatchCountByRank(rank) {

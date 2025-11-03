@@ -2,12 +2,14 @@ import NumberValidator from "./NumberValidator.js";
 import Lotto from "../Lotto.js";
 
 class WinningNumberValidator {
+  static DELIMITER = ",";
+
   static parse(input) {
-    if (!input.includes(",")) {
+    if (!input.includes(WinningNumberValidator.DELIMITER)) {
       throw new Error("[ERROR] 당첨 번호는 쉼표로 구분되어야 합니다.");
     }
     
-    const numbers = input.split(",").map((number) => number.trim());
+    const numbers = input.split(WinningNumberValidator.DELIMITER).map((number) => number.trim());
     this.#validateCount(numbers);
     NumberValidator.validateNumericArray(numbers, "[ERROR] 당첨 번호는 숫자여야 합니다.");
     

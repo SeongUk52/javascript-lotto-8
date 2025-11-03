@@ -8,6 +8,8 @@ class LottoWinningService {
   static PRIZE_FIFTH = 5000;
   static PERCENTAGE_MULTIPLIER = 100;
   static ROUND_DECIMAL_PLACES = 10;
+  static INITIAL_COUNT = 0;
+  static INITIAL_PRIZE = 0;
 
   #lottoRepository;
   #winningLottoRepository;
@@ -29,12 +31,12 @@ class LottoWinningService {
   calculateRankCounts() {
     const ranks = this.calculateRanks();
     const rankCounts = {
-      [WinningLotto.RANK_NONE]: 0,
-      [WinningLotto.RANK_FIRST]: 0,
-      [WinningLotto.RANK_SECOND]: 0,
-      [WinningLotto.RANK_THIRD]: 0,
-      [WinningLotto.RANK_FOURTH]: 0,
-      [WinningLotto.RANK_FIFTH]: 0,
+      [WinningLotto.RANK_NONE]: LottoWinningService.INITIAL_COUNT,
+      [WinningLotto.RANK_FIRST]: LottoWinningService.INITIAL_COUNT,
+      [WinningLotto.RANK_SECOND]: LottoWinningService.INITIAL_COUNT,
+      [WinningLotto.RANK_THIRD]: LottoWinningService.INITIAL_COUNT,
+      [WinningLotto.RANK_FOURTH]: LottoWinningService.INITIAL_COUNT,
+      [WinningLotto.RANK_FIFTH]: LottoWinningService.INITIAL_COUNT,
     };
     
     ranks.forEach((rank) => {
@@ -54,7 +56,7 @@ class LottoWinningService {
       [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
     };
     
-    let totalPrize = 0;
+    let totalPrize = LottoWinningService.INITIAL_PRIZE;
     [
       WinningLotto.RANK_FIRST,
       WinningLotto.RANK_SECOND,
@@ -73,7 +75,7 @@ class LottoWinningService {
     const purchaseAmount = this.#purchaseAmountRepository.find();
     
     if (!purchaseAmount) {
-      return 0;
+      return LottoWinningService.INITIAL_PRIZE;
     }
     
     const purchaseAmountValue = purchaseAmount.getAmount();

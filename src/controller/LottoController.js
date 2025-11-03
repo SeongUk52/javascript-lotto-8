@@ -10,7 +10,6 @@ import PurchaseAmountRepository from "../repository/PurchaseAmountRepository.js"
 import WinningLottoRepository from "../repository/WinningLottoRepository.js";
 import LottoPurchaseService from "../service/LottoPurchaseService.js";
 import LottoWinningService from "../service/LottoWinningService.js";
-import { MissionUtils } from "@woowacourse/mission-utils";
 
 class LottoController {
   #lottoRepository;
@@ -52,7 +51,7 @@ class LottoController {
       PurchaseAmountValidator.validate(input);
       return input;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      OutputView.printError(error);
       return await this.#readPurchaseAmountWithValidation();
     }
   }
@@ -89,7 +88,7 @@ class LottoController {
       const input = await InputView.readWinningNumbers();
       return WinningNumberValidator.parse(input);
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      OutputView.printError(error);
       return await this.#readWinningNumbersWithValidation();
     }
   }
@@ -100,7 +99,7 @@ class LottoController {
       BonusNumberValidator.validate(input, winningNumbers);
       return input;
     } catch (error) {
-      MissionUtils.Console.print(error.message);
+      OutputView.printError(error);
       return await this.#readBonusNumberWithValidation(winningNumbers);
     }
   }

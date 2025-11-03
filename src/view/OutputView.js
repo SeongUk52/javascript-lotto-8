@@ -97,6 +97,10 @@ class OutputView {
   static printProfitRate(profitRate) {
     MissionUtils.Console.print(`${OutputView.MESSAGE_PROFIT_RATE_PREFIX}${profitRate}${OutputView.MESSAGE_PROFIT_RATE_SUFFIX}`);
   }
+
+  static printError(error) {
+    MissionUtils.Console.print(error.message);
+  }
 }
 
 export default OutputView;

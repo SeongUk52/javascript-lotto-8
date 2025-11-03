@@ -61,7 +61,7 @@ class LottoController {
     for (let i = 0; i < lottoCount; i++) {
       const numbers = this.#lottoPurchaseService.generateNumbers();
       const lotto = this.#lottoPurchaseService.createLotto(numbers);
-      this.#lottoPurchaseService.saveLotto(this.#lottoRepository, lotto);
+      this.#lottoRepository.save(lotto);
     }
   }
 

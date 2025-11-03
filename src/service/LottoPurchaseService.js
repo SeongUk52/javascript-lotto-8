@@ -17,10 +17,6 @@ class LottoPurchaseService {
   createLotto(numbers) {
     return new Lotto(numbers);
   }
-
-  saveLotto(repository, lotto) {
-    repository.save(lotto);
-  }
 }
 
 export default LottoPurchaseService;

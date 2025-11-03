@@ -27,17 +27,13 @@ describe("로또 구매 서비스 테스트", () => {
     });
   });
 
-  test("로또 인스턴스를 생성하고 리포지토리에 저장한다.", () => {
+  test("로또 인스턴스를 생성한다.", () => {
     const service = new LottoPurchaseService();
-    const repository = new LottoRepository();
     const numbers = [1, 2, 3, 4, 5, 6];
     
     const lotto = service.createLotto(numbers);
-    service.saveLotto(repository, lotto);
     
     expect(lotto).toBeInstanceOf(Lotto);
-    expect(repository.findAll()).toHaveLength(1);
-    expect(repository.findAll()[0]).toBe(lotto);
   });
 });
 

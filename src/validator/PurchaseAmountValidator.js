@@ -1,4 +1,5 @@
 import PurchaseAmount from "../PurchaseAmount.js";
+import NumberValidator from "./NumberValidator.js";
 
 class PurchaseAmountValidator {
   static validate(amount) {
@@ -12,9 +13,7 @@ class PurchaseAmountValidator {
   }
 
   static #validateNumeric(amount) {
-    if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) {
-      throw new Error("[ERROR] 구매 금액은 숫자여야 합니다.");
-    }
+    NumberValidator.validateNumeric(amount, "[ERROR] 구매 금액은 숫자여야 합니다.");
   }
 
   static #validateUnit(amount) {

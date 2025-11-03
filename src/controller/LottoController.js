@@ -4,6 +4,7 @@ import PurchaseAmountValidator from "../validator/PurchaseAmountValidator.js";
 import WinningNumberValidator from "../validator/WinningNumberValidator.js";
 import BonusNumberValidator from "../validator/BonusNumberValidator.js";
 import PurchaseAmount from "../PurchaseAmount.js";
+import Lotto from "../Lotto.js";
 import WinningLotto from "../WinningLotto.js";
 import LottoRepository from "../repository/LottoRepository.js";
 import PurchaseAmountRepository from "../repository/PurchaseAmountRepository.js";
@@ -53,11 +54,11 @@ class LottoController {
   }
 
   #generateLottos(purchaseAmount) {
-    const lottoCount = this.#lottoPurchaseService.calculateLottoCount(purchaseAmount);
+    const lottoCount = purchaseAmount.getLottoCount();
     
     for (let i = 0; i < lottoCount; i++) {
       const numbers = this.#lottoPurchaseService.generateNumbers();
-      const lotto = this.#lottoPurchaseService.createLotto(numbers);
+      const lotto = new Lotto(numbers);
       this.#lottoRepository.save(lotto);
     }
   }

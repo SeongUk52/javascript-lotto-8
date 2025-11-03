@@ -65,16 +65,13 @@ class WinningLotto {
     const matchCount = this.countMatchingNumbers(lotto);
     const hasBonus = this.hasBonusNumber(lotto);
     
-    for (const condition of WinningLotto.RANK_CONDITIONS) {
-      if (matchCount === condition.matchCount) {
-        if (condition.requireBonus && !hasBonus) {
-          continue;
-        }
-        return condition.rank;
-      }
-    }
+    const matchedCondition = WinningLotto.RANK_CONDITIONS.find((condition) => {
+      const isMatchCountEqual = matchCount === condition.matchCount;
+      const isBonusSatisfied = !condition.requireBonus || hasBonus;
+      return isMatchCountEqual && isBonusSatisfied;
+    });
     
-    return WinningLotto.RANK_NONE;
+    return matchedCondition?.rank ?? WinningLotto.RANK_NONE;
   }
 }
 

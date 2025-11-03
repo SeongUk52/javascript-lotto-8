@@ -17,6 +17,22 @@ class OutputView {
   static DELIMITER = ", ";
   static NEWLINE = "\n";
 
+  static MATCH_COUNT_MAP = {
+    [WinningLotto.RANK_FIRST]: WinningLotto.MATCH_COUNT_FIRST,
+    [WinningLotto.RANK_SECOND]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
+    [WinningLotto.RANK_THIRD]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
+    [WinningLotto.RANK_FOURTH]: WinningLotto.MATCH_COUNT_FOURTH,
+    [WinningLotto.RANK_FIFTH]: WinningLotto.MATCH_COUNT_FIFTH,
+  };
+
+  static PRIZE_MAP = {
+    [WinningLotto.RANK_FIRST]: LottoWinningService.PRIZE_FIRST,
+    [WinningLotto.RANK_SECOND]: LottoWinningService.PRIZE_SECOND,
+    [WinningLotto.RANK_THIRD]: LottoWinningService.PRIZE_THIRD,
+    [WinningLotto.RANK_FOURTH]: LottoWinningService.PRIZE_FOURTH,
+    [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
+  };
+
   static printLottoCount(count) {
     MissionUtils.Console.print(`${count}${OutputView.MESSAGE_LOTTO_COUNT_PREFIX}${OutputView.NEWLINE}`);
   }
@@ -43,23 +59,36 @@ class OutputView {
     MissionUtils.Console.print(OutputView.MESSAGE_WINNING_STATISTICS_DIVIDER);
   }
 
+  static PRINT_RANK_ORDER = [
+    WinningLotto.RANK_FIFTH,
+    WinningLotto.RANK_FOURTH,
+    WinningLotto.RANK_THIRD,
+    WinningLotto.RANK_SECOND,
+    WinningLotto.RANK_FIRST,
+  ];
+
   static printWinningStatisticsBody(rankCounts) {
-    OutputView.printRankStatistics(WinningLotto.RANK_FIFTH, rankCounts[WinningLotto.RANK_FIFTH]);
-    OutputView.printRankStatistics(WinningLotto.RANK_FOURTH, rankCounts[WinningLotto.RANK_FOURTH]);
-    OutputView.printRankStatistics(WinningLotto.RANK_THIRD, rankCounts[WinningLotto.RANK_THIRD]);
-    OutputView.printRankStatisticsSecond(rankCounts[WinningLotto.RANK_SECOND]);
-    OutputView.printRankStatistics(WinningLotto.RANK_FIRST, rankCounts[WinningLotto.RANK_FIRST]);
+    OutputView.PRINT_RANK_ORDER.forEach((rank) => {
+      if (rank === WinningLotto.RANK_SECOND) {
+        OutputView.printRankStatisticsSecond(rankCounts[rank]);
+        return;
+      }
+      OutputView.printRankStatistics(rank, rankCounts[rank]);
+    });
   }
 
   static printRankStatistics(rank, count) {
+    const message = OutputView.formatRankStatisticsMessage(rank, count);
+    MissionUtils.Console.print(message);
+  }
+
+  static formatRankStatisticsMessage(rank, count) {
     const matchCount = OutputView.getMatchCountByRank(rank);
     const prize = OutputView.getPrizeByRank(rank);
     const formattedPrize = OutputView.formatPrize(prize);
     const bonusText = rank === WinningLotto.RANK_SECOND ? OutputView.MESSAGE_BONUS_MATCH : "";
     
-    MissionUtils.Console.print(
-      `${matchCount}${OutputView.MESSAGE_MATCH_COUNT_SUFFIX}${bonusText} ${OutputView.MESSAGE_PRIZE_PREFIX}${formattedPrize}${OutputView.MESSAGE_PRIZE_SUFFIX}${OutputView.MESSAGE_COUNT_PREFIX}${count}${OutputView.MESSAGE_COUNT_SUFFIX}`
-    );
+    return `${matchCount}${OutputView.MESSAGE_MATCH_COUNT_SUFFIX}${bonusText} ${OutputView.MESSAGE_PRIZE_PREFIX}${formattedPrize}${OutputView.MESSAGE_PRIZE_SUFFIX}${OutputView.MESSAGE_COUNT_PREFIX}${count}${OutputView.MESSAGE_COUNT_SUFFIX}`;
   }
 
   static printRankStatisticsSecond(count) {
@@ -67,27 +96,11 @@ class OutputView {
   }
 
   static getMatchCountByRank(rank) {
-    const MATCH_COUNT_MAP = {
-      [WinningLotto.RANK_FIRST]: WinningLotto.MATCH_COUNT_FIRST,
-      [WinningLotto.RANK_SECOND]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
-      [WinningLotto.RANK_THIRD]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
-      [WinningLotto.RANK_FOURTH]: WinningLotto.MATCH_COUNT_FOURTH,
-      [WinningLotto.RANK_FIFTH]: WinningLotto.MATCH_COUNT_FIFTH,
-    };
-    
-    return MATCH_COUNT_MAP[rank] ?? LottoWinningService.INITIAL_COUNT;
+    return OutputView.MATCH_COUNT_MAP[rank] ?? LottoWinningService.INITIAL_COUNT;
   }
 
   static getPrizeByRank(rank) {
-    const PRIZE_MAP = {
-      [WinningLotto.RANK_FIRST]: LottoWinningService.PRIZE_FIRST,
-      [WinningLotto.RANK_SECOND]: LottoWinningService.PRIZE_SECOND,
-      [WinningLotto.RANK_THIRD]: LottoWinningService.PRIZE_THIRD,
-      [WinningLotto.RANK_FOURTH]: LottoWinningService.PRIZE_FOURTH,
-      [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
-    };
-    
-    return PRIZE_MAP[rank] ?? LottoWinningService.INITIAL_PRIZE;
+    return OutputView.PRIZE_MAP[rank] ?? LottoWinningService.INITIAL_PRIZE;
   }
 
   static formatPrize(prize) {

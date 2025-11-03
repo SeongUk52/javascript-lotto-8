@@ -7,7 +7,7 @@ class PurchaseAmountValidator {
   }
 
   static #validateNumeric(amount) {
-    if (amount === "" || isNaN(Number(amount))) {
+    if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) {
       throw new Error("[ERROR] 구매 금액은 숫자여야 합니다.");
     }
   }

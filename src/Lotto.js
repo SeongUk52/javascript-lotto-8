@@ -18,7 +18,7 @@ class Lotto {
 
   #validateCount(numbers) {
     if (numbers.length !== Lotto.NUMBER_COUNT) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+      throw new Error(`[ERROR] 로또 번호는 ${Lotto.NUMBER_COUNT}개여야 합니다.`);
     }
   }
 
@@ -31,7 +31,7 @@ class Lotto {
   #validateRange(numbers) {
     numbers.forEach((number) => {
       if (number < Lotto.MIN_NUMBER || number > Lotto.MAX_NUMBER) {
-        throw new Error("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        throw new Error(`[ERROR] 로또 번호는 ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
       }
     });
   }

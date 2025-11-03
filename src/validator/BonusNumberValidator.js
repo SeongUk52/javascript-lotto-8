@@ -1,9 +1,10 @@
 import NumberValidator from "./NumberValidator.js";
+import Lotto from "../Lotto.js";
 
 class BonusNumberValidator {
   static validate(bonusNumber, winningNumbers) {
     NumberValidator.validateNumeric(bonusNumber, "[ERROR] 보너스 번호는 숫자여야 합니다.");
-    NumberValidator.validateRange(bonusNumber, "[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+    NumberValidator.validateRange(bonusNumber, `[ERROR] 보너스 번호는 ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
     this.#validateDuplicateWithWinningNumbers(bonusNumber, winningNumbers);
   }
 

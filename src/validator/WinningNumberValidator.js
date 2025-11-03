@@ -29,7 +29,7 @@ class WinningNumberValidator {
 
   static #validateCount(numbers) {
     if (numbers.length !== Lotto.NUMBER_COUNT) {
-      throw new Error("[ERROR] 당첨 번호는 6개여야 합니다.");
+      throw new Error(`[ERROR] 당첨 번호는 ${Lotto.NUMBER_COUNT}개여야 합니다.`);
     }
   }
 
@@ -42,7 +42,7 @@ class WinningNumberValidator {
   }
 
   static #validateRange(parsedNumbers) {
-    NumberValidator.validateRangeArray(parsedNumbers, "[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
+    NumberValidator.validateRangeArray(parsedNumbers, `[ERROR] 당첨 번호는 ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
   }
 
   static #validateDuplicate(parsedNumbers) {

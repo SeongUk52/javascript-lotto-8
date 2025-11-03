@@ -15,16 +15,18 @@ class NumberValidator {
     });
   }
 
-  static validateRange(number, errorMessage = "[ERROR] 1부터 45 사이의 숫자여야 합니다.") {
+  static validateRange(number, errorMessage = null) {
     const num = typeof number === "string" ? Number(number) : number;
     if (num < Lotto.MIN_NUMBER || num > Lotto.MAX_NUMBER) {
-      throw new Error(errorMessage);
+      const message = errorMessage || `[ERROR] ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`;
+      throw new Error(message);
     }
   }
 
-  static validateRangeArray(numbers, errorMessage = "[ERROR] 1부터 45 사이의 숫자여야 합니다.") {
+  static validateRangeArray(numbers, errorMessage = null) {
+    const message = errorMessage || `[ERROR] ${Lotto.MIN_NUMBER}부터 ${Lotto.MAX_NUMBER} 사이의 숫자여야 합니다.`;
     numbers.forEach((number) => {
-      this.validateRange(number, errorMessage);
+      this.validateRange(number, message);
     });
   }
 

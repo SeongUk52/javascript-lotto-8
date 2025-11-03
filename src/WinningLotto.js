@@ -33,7 +33,7 @@ class WinningLotto {
 
   #validateBonusNumber(bonusNumber, winningNumbers) {
     if (bonusNumber < WinningLotto.MIN_NUMBER || bonusNumber > WinningLotto.MAX_NUMBER) {
-      throw new Error("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+      throw new Error(`[ERROR] 보너스 번호는 ${WinningLotto.MIN_NUMBER}부터 ${WinningLotto.MAX_NUMBER} 사이의 숫자여야 합니다.`);
     }
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");

@@ -41,5 +41,39 @@ describe("출력 뷰 테스트", () => {
     expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(1, "[8, 21, 23, 41, 42, 43]");
     expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(2, "[3, 5, 11, 16, 32, 38]");
   });
+
+  test("당첨 통계 헤더를 출력한다.", () => {
+    OutputView.printWinningStatisticsHeader();
+
+    expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(1, "당첨 통계");
+    expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(2, "---");
+  });
+
+  test("등수별 당첨 통계를 출력한다.", () => {
+    const rankCounts = {
+      0: 0,
+      1: 1,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 1,
+    };
+
+    OutputView.printWinningStatistics(rankCounts);
+
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("당첨 통계");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("---");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("3개 일치 (5,000원) - 1개");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("4개 일치 (50,000원) - 0개");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("5개 일치 (1,500,000원) - 0개");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("5개 일치, 보너스 볼 일치 (30,000,000원) - 0개");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("6개 일치 (2,000,000,000원) - 1개");
+  });
+
+  test("수익률을 출력한다.", () => {
+    OutputView.printProfitRate(62.5);
+
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("총 수익률은 62.5%입니다.");
+  });
 });
 

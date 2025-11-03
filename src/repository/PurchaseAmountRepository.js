@@ -1,9 +1,5 @@
 class PurchaseAmountRepository {
-  #purchaseAmount;
-
-  constructor() {
-    this.#purchaseAmount = null;
-  }
+  #purchaseAmount = null;
 
   save(purchaseAmount) {
     this.#purchaseAmount = purchaseAmount;

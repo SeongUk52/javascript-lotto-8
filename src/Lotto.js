@@ -31,11 +31,11 @@ class Lotto {
   }
 
   #validateRange(numbers) {
-    numbers.forEach((number) => {
+    for (const number of numbers) {
       if (number < Lotto.MIN_NUMBER || number > Lotto.MAX_NUMBER) {
         throw new Error(ErrorMessage.LOTTO_RANGE(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER));
       }
-    });
+    }
   }
 
   getNumbers() {

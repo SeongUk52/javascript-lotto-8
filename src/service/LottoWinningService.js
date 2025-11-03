@@ -39,9 +39,9 @@ class LottoWinningService {
       [WinningLotto.RANK_FIFTH]: LottoWinningService.INITIAL_COUNT,
     };
     
-    ranks.forEach((rank) => {
+    for (const rank of ranks) {
       rankCounts[rank] += 1;
-    });
+    }
     
     return rankCounts;
   }

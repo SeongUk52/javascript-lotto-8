@@ -13,6 +13,11 @@ class BonusNumberValidator {
       throw new Error("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
   }
+
+  static parse(bonusNumber, winningNumbers) {
+    this.validate(bonusNumber, winningNumbers);
+    return Number(bonusNumber);
+  }
 }
 
 export default BonusNumberValidator;

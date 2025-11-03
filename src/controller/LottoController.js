@@ -38,8 +38,8 @@ class LottoController {
   }
 
   async #purchaseLottos() {
-    const purchaseAmountInput = await this.#readPurchaseAmountWithValidation();
-    const purchaseAmount = new PurchaseAmount(Number(purchaseAmountInput));
+    const purchaseAmountValue = await this.#readPurchaseAmountWithValidation();
+    const purchaseAmount = new PurchaseAmount(purchaseAmountValue);
     
     this.#purchaseAmountRepository.save(purchaseAmount);
     this.#generateLottos(purchaseAmount);
@@ -48,8 +48,7 @@ class LottoController {
   async #readPurchaseAmountWithValidation() {
     try {
       const input = await InputView.readPurchaseAmount();
-      PurchaseAmountValidator.validate(input);
-      return input;
+      return PurchaseAmountValidator.parse(input);
     } catch (error) {
       OutputView.printError(error);
       return await this.#readPurchaseAmountWithValidation();
@@ -76,8 +75,7 @@ class LottoController {
 
   async #inputWinningNumbers() {
     const winningNumbers = await this.#readWinningNumbersWithValidation();
-    const bonusNumberInput = await this.#readBonusNumberWithValidation(winningNumbers);
-    const bonusNumber = Number(bonusNumberInput);
+    const bonusNumber = await this.#readBonusNumberWithValidation(winningNumbers);
     
     const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
     this.#winningLottoRepository.save(winningLotto);
@@ -96,8 +94,7 @@ class LottoController {
   async #readBonusNumberWithValidation(winningNumbers) {
     try {
       const input = await InputView.readBonusNumber();
-      BonusNumberValidator.validate(input, winningNumbers);
-      return input;
+      return BonusNumberValidator.parse(input, winningNumbers);
     } catch (error) {
       OutputView.printError(error);
       return await this.#readBonusNumberWithValidation(winningNumbers);

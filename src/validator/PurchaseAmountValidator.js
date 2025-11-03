@@ -6,6 +6,11 @@ class PurchaseAmountValidator {
     this.#validateUnit(amount);
   }
 
+  static parse(amount) {
+    this.validate(amount);
+    return Number(amount);
+  }
+
   static #validateNumeric(amount) {
     if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) {
       throw new Error("[ERROR] 구매 금액은 숫자여야 합니다.");

@@ -18,7 +18,7 @@ describe("출력 뷰 테스트", () => {
   test("로또 개수를 출력한다.", () => {
     OutputView.printLottoCount(8);
 
-    expect(MissionUtils.Console.print).toHaveBeenCalledWith("8개를 구매했습니다.");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("8개를 구매했습니다.\n");
   });
 
   test("로또 번호 형식을 출력한다.", () => {
@@ -37,15 +37,16 @@ describe("출력 뷰 테스트", () => {
 
     OutputView.printLottoNumbers(lottos);
 
-    expect(MissionUtils.Console.print).toHaveBeenCalledTimes(2);
+    expect(MissionUtils.Console.print).toHaveBeenCalledTimes(3);
     expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(1, "[8, 21, 23, 41, 42, 43]");
     expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(2, "[3, 5, 11, 16, 32, 38]");
+    expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(3, "");
   });
 
   test("당첨 통계 헤더를 출력한다.", () => {
     OutputView.printWinningStatisticsHeader();
 
-    expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(1, "당첨 통계");
+    expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(1, "\n당첨 통계");
     expect(MissionUtils.Console.print).toHaveBeenNthCalledWith(2, "---");
   });
 
@@ -61,7 +62,7 @@ describe("출력 뷰 테스트", () => {
 
     OutputView.printWinningStatistics(rankCounts);
 
-    expect(MissionUtils.Console.print).toHaveBeenCalledWith("당첨 통계");
+    expect(MissionUtils.Console.print).toHaveBeenCalledWith("\n당첨 통계");
     expect(MissionUtils.Console.print).toHaveBeenCalledWith("---");
     expect(MissionUtils.Console.print).toHaveBeenCalledWith("3개 일치 (5,000원) - 1개");
     expect(MissionUtils.Console.print).toHaveBeenCalledWith("4개 일치 (50,000원) - 0개");

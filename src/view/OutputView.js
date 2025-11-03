@@ -4,7 +4,7 @@ import LottoWinningService from "../service/LottoWinningService.js";
 
 class OutputView {
   static printLottoCount(count) {
-    MissionUtils.Console.print(`${count}개를 구매했습니다.`);
+    MissionUtils.Console.print(`${count}개를 구매했습니다.\n`);
   }
 
   static printLottoNumbers(lottos) {
@@ -12,6 +12,7 @@ class OutputView {
       const numbers = lotto.getNumbers();
       OutputView.printLottoNumberFormat(numbers);
     });
+    MissionUtils.Console.print("");
   }
 
   static printLottoNumberFormat(numbers) {
@@ -24,7 +25,7 @@ class OutputView {
   }
 
   static printWinningStatisticsHeader() {
-    MissionUtils.Console.print("당첨 통계");
+    MissionUtils.Console.print("\n당첨 통계");
     MissionUtils.Console.print("---");
   }
 

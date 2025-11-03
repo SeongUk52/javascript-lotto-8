@@ -70,22 +70,15 @@ class OutputView {
   }
 
   static getPrizeByRank(rank) {
-    if (rank === WinningLotto.RANK_FIRST) {
-      return LottoWinningService.PRIZE_FIRST;
-    }
-    if (rank === WinningLotto.RANK_SECOND) {
-      return LottoWinningService.PRIZE_SECOND;
-    }
-    if (rank === WinningLotto.RANK_THIRD) {
-      return LottoWinningService.PRIZE_THIRD;
-    }
-    if (rank === WinningLotto.RANK_FOURTH) {
-      return LottoWinningService.PRIZE_FOURTH;
-    }
-    if (rank === WinningLotto.RANK_FIFTH) {
-      return LottoWinningService.PRIZE_FIFTH;
-    }
-    return 0;
+    const PRIZE_MAP = {
+      [WinningLotto.RANK_FIRST]: LottoWinningService.PRIZE_FIRST,
+      [WinningLotto.RANK_SECOND]: LottoWinningService.PRIZE_SECOND,
+      [WinningLotto.RANK_THIRD]: LottoWinningService.PRIZE_THIRD,
+      [WinningLotto.RANK_FOURTH]: LottoWinningService.PRIZE_FOURTH,
+      [WinningLotto.RANK_FIFTH]: LottoWinningService.PRIZE_FIFTH,
+    };
+    
+    return PRIZE_MAP[rank] || 0;
   }
 
   static formatPrize(prize) {

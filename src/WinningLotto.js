@@ -14,6 +14,14 @@ class WinningLotto {
   static MATCH_COUNT_FOURTH = 4;
   static MATCH_COUNT_FIFTH = 3;
 
+  static RANK_CONDITIONS = [
+    { matchCount: WinningLotto.MATCH_COUNT_FIRST, rank: WinningLotto.RANK_FIRST, requireBonus: false },
+    { matchCount: WinningLotto.MATCH_COUNT_SECOND_THIRD, rank: WinningLotto.RANK_SECOND, requireBonus: true },
+    { matchCount: WinningLotto.MATCH_COUNT_SECOND_THIRD, rank: WinningLotto.RANK_THIRD, requireBonus: false },
+    { matchCount: WinningLotto.MATCH_COUNT_FOURTH, rank: WinningLotto.RANK_FOURTH, requireBonus: false },
+    { matchCount: WinningLotto.MATCH_COUNT_FIFTH, rank: WinningLotto.RANK_FIFTH, requireBonus: false },
+  ];
+
   #winningLotto;
   #bonusNumber;
 
@@ -54,21 +62,15 @@ class WinningLotto {
 
   getRank(lotto) {
     const matchCount = this.countMatchingNumbers(lotto);
+    const hasBonus = this.hasBonusNumber(lotto);
     
-    if (matchCount === WinningLotto.MATCH_COUNT_FIRST) {
-      return WinningLotto.RANK_FIRST;
-    }
-    if (matchCount === WinningLotto.MATCH_COUNT_SECOND_THIRD && this.hasBonusNumber(lotto)) {
-      return WinningLotto.RANK_SECOND;
-    }
-    if (matchCount === WinningLotto.MATCH_COUNT_SECOND_THIRD) {
-      return WinningLotto.RANK_THIRD;
-    }
-    if (matchCount === WinningLotto.MATCH_COUNT_FOURTH) {
-      return WinningLotto.RANK_FOURTH;
-    }
-    if (matchCount === WinningLotto.MATCH_COUNT_FIFTH) {
-      return WinningLotto.RANK_FIFTH;
+    for (const condition of WinningLotto.RANK_CONDITIONS) {
+      if (matchCount === condition.matchCount) {
+        if (condition.requireBonus && !hasBonus) {
+          continue;
+        }
+        return condition.rank;
+      }
     }
     
     return WinningLotto.RANK_NONE;

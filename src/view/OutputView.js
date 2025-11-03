@@ -51,19 +51,15 @@ class OutputView {
   }
 
   static getMatchCountByRank(rank) {
-    if (rank === WinningLotto.RANK_FIRST) {
-      return WinningLotto.MATCH_COUNT_FIRST;
-    }
-    if (rank === WinningLotto.RANK_SECOND || rank === WinningLotto.RANK_THIRD) {
-      return WinningLotto.MATCH_COUNT_SECOND_THIRD;
-    }
-    if (rank === WinningLotto.RANK_FOURTH) {
-      return WinningLotto.MATCH_COUNT_FOURTH;
-    }
-    if (rank === WinningLotto.RANK_FIFTH) {
-      return WinningLotto.MATCH_COUNT_FIFTH;
-    }
-    return 0;
+    const MATCH_COUNT_MAP = {
+      [WinningLotto.RANK_FIRST]: WinningLotto.MATCH_COUNT_FIRST,
+      [WinningLotto.RANK_SECOND]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
+      [WinningLotto.RANK_THIRD]: WinningLotto.MATCH_COUNT_SECOND_THIRD,
+      [WinningLotto.RANK_FOURTH]: WinningLotto.MATCH_COUNT_FOURTH,
+      [WinningLotto.RANK_FIFTH]: WinningLotto.MATCH_COUNT_FIFTH,
+    };
+    
+    return MATCH_COUNT_MAP[rank] || 0;
   }
 
   static getPrizeByRank(rank) {
